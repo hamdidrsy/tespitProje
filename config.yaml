@@ -1,0 +1,33 @@
+model:
+  weights: "models/best.pt"
+  conf_threshold: 0.25
+  iou_threshold: 0.45
+
+quality:
+  system: "4-point"
+  max_points_per_100m2: 40
+
+pricing:
+  currency: "TL"
+  base_price_per_m2: 25
+  grade_multipliers:
+    A: 1.0
+    B: 0.85
+    C: 0.70
+    reject: 0.0
+
+image:
+  default_dpi: 96
+  default_fabric_width_cm: 150
+
+defect_classes:
+  0: "Hole"
+  1: "Knot"
+  2: "Line"
+  3: "Stain"
+
+defect_names_tr:
+  Hole: "Delik"
+  Knot: "Düğüm"
+  Line: "Çizgi"
+  Stain: "Leke"

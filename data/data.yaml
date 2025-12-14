@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['Hole', 'Knot', 'Line', 'Stain']
+
+roboflow:
+  workspace: hamdi-durusoy-iqwpj
+  project: fabric-defect-detection-v2-w4az5
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/hamdi-durusoy-iqwpj/fabric-defect-detection-v2-w4az5/dataset/1
