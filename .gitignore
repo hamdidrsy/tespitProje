@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env
+pip-wheel-metadata/
+build/
+dist/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Byte-compiled / distribution
+*.egg-info/
+*.egg
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints
+
+# macOS
+.DS_Store
+
+# Data / models (do not commit large ML weights)
+*.pt
+*.pth
+yolo11n.pt
+yolov8s-seg.pt
+models/
+models/**/weights/
+
+# Dataset caches
+data/*.cache
+
+# Local config
+.env.local
