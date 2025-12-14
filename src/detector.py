@@ -104,6 +104,7 @@ class FabricDefectDetector:
         image: Union[str, np.ndarray],
         dpi: float = 96,
         fabric_width_cm: float = 150,
+        conf_threshold: Optional[float] = None,
     ) -> DetectionResult:
         """
         Görüntüde kusur tespiti yap.
@@ -112,10 +113,13 @@ class FabricDefectDetector:
             image: Görüntü dosya yolu veya numpy array
             dpi: Görüntü DPI değeri (piksel/inç)
             fabric_width_cm: Kumaş genişliği (cm)
+            conf_threshold: Güven eşiği (None ise varsayılan kullanılır)
 
         Returns:
             DetectionResult: Tespit sonuçları
         """
+        # Güven eşiğini belirle
+        conf = conf_threshold if conf_threshold is not None else self.conf_threshold
         # Görüntüyü yükle
         if isinstance(image, str):
             img = cv2.imread(image)
@@ -136,7 +140,7 @@ class FabricDefectDetector:
         # YOLOv8 inference
         predictions = self.model.predict(
             source=img,
-            conf=self.conf_threshold,
+            conf=conf,
             iou=self.iou_threshold,
             device=self.device,
             verbose=False,

@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumas Kusur Tespiti - Proje Dokumantasyonu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #0f3460 0%, #533483 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #e94560, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #aaa;
+        }
+
+        header .subtitle {
+            font-size: 1em;
+            color: #e94560;
+            margin-top: 10px;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info-card h3 {
+            color: #e94560;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .info-card p {
+            color: #888;
+        }
+
+        nav {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #eee;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(233, 69, 96, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        nav a:hover {
+            background: #e94560;
+            transform: translateY(-2px);
+        }
+
+        .file-section {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .icon-python { background: linear-gradient(135deg, #306998, #FFE873); }
+        .icon-yaml { background: linear-gradient(135deg, #cb171e, #ff6b6b); }
+        .icon-txt { background: linear-gradient(135deg, #607d8b, #90a4ae); }
+
+        .file-header h2 {
+            font-size: 1.4em;
+            flex-grow: 1;
+        }
+
+        .file-path {
+            font-size: 0.85em;
+            color: #888;
+            font-family: 'Consolas', monospace;
+        }
+
+        .file-content {
+            padding: 30px;
+        }
+
+        .summary-box {
+            background: rgba(233, 69, 96, 0.1);
+            border-left: 4px solid #e94560;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 25px;
+        }
+
+        .summary-box h3 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+
+        .code-section {
+            margin-top: 20px;
+        }
+
+        .code-section h4 {
+            color: #f39c12;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #c9d1d9;
+        }
+
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .function { color: #d2a8ff; }
+        .class { color: #7ee787; }
+        .comment { color: #8b949e; }
+        .number { color: #79c0ff; }
+        .decorator { color: #ffa657; }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-item span.icon {
+            font-size: 1.5em;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .defect-classes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .defect-card {
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .defect-card.hole { background: rgba(255, 0, 0, 0.2); border: 2px solid #ff0000; }
+        .defect-card.knot { background: rgba(255, 165, 0, 0.2); border: 2px solid #ffa500; }
+        .defect-card.line { background: rgba(255, 255, 0, 0.2); border: 2px solid #ffff00; }
+        .defect-card.stain { background: rgba(255, 0, 255, 0.2); border: 2px solid #ff00ff; }
+
+        .defect-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .defect-card .severity {
+            font-size: 0.8em;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .severity-major { background: rgba(220, 53, 69, 0.5); color: #ff6b6b; }
+        .severity-minor { background: rgba(40, 167, 69, 0.5); color: #7ee787; }
+
+        .quality-grades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .grade-card {
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .grade-card.grade-a { background: rgba(40, 167, 69, 0.3); border: 2px solid #28a745; }
+        .grade-card.grade-b { background: rgba(255, 193, 7, 0.3); border: 2px solid #ffc107; }
+        .grade-card.grade-c { background: rgba(253, 126, 20, 0.3); border: 2px solid #fd7e14; }
+        .grade-card.grade-reject { background: rgba(220, 53, 69, 0.3); border: 2px solid #dc3545; }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .pricing-table th, .pricing-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .pricing-table th {
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .architecture {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .architecture-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .arch-box {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .arch-arrow {
+            font-size: 2em;
+            color: #e94560;
+        }
+
+        .update-badge {
+            background: linear-gradient(135deg, #e94560, #f39c12);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .file-header { flex-direction: column; text-align: center; }
+            .architecture-flow { flex-direction: column; }
+            .arch-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kumas Kusur Tespiti ve Fiyatlandirma Sistemi</h1>
+            <p>YOLOv8 Segmentation ile Akilli Kumas Kalite Analizi</p>
+            <p class="subtitle">4-Point Kalite Standardi | Major/Minor Kusur Siniflandirmasi | ASTM D5430</p>
+        </header>
+
+        <div class="project-info">
+            <div class="info-card">
+                <h3>7</h3>
+                <p>Python Dosyasi</p>
+            </div>
+            <div class="info-card">
+                <h3>4</h3>
+                <p>Kusur Sinifi</p>
+            </div>
+            <div class="info-card">
+                <h3>4</h3>
+                <p>Kalite Seviyesi</p>
+            </div>
+            <div class="info-card">
+                <h3>40</h3>
+                <p>Kabul Siniri (puan/100m²)</p>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#app">app.py</a></li>
+                <li><a href="#detector">detector.py</a></li>
+                <li><a href="#quality">quality_scorer.py</a></li>
+                <li><a href="#pricing">pricing.py</a></li>
+                <li><a href="#train">train.py</a></li>
+                <li><a href="#config">config.yaml</a></li>
+                <li><a href="#data">data.yaml</a></li>
+                <li><a href="#requirements">requirements.txt</a></li>
+            </ul>
+        </nav>
+
+        <!-- Mimari Genel Bakis -->
+        <section class="file-section">
+            <div class="file-header">
+                <div class="file-icon" style="background: linear-gradient(135deg, #e94560, #f39c12);">
+                    <span>*</span>
+                </div>
+                <div>
+                    <h2>Proje Mimarisi <span class="update-badge">GUNCELLENDI</span></h2>
+                    <span class="file-path">Genel Bakis - 4-Point / Major-Minor Standardi</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Proje Hakkinda</h3>
+                    <p>Bu proje, YOLOv8 Segmentation modeli kullanarak kumaslardaki kusurlari tespit eden,
+                    <strong>4-Point Uluslararasi Kalite Standardi (ASTM D5430)</strong> ve <strong>Major/Minor Kusur Siniflandirmasi</strong>'na gore puanlayan,
+                    <strong>puan bazli oransal indirim sistemi</strong> ile kaliteye dayali fiyatlandirma yapan
+                    tam kapsamli bir sistemdir. Streamlit tabanli web arayuzu ile kullanici dostu bir deneyim sunar.</p>
+                </div>
+
+                <div class="architecture">
+                    <h4 style="text-align: center; margin-bottom: 20px; color: #f39c12;">Sistem Akisi</h4>
+                    <div class="architecture-flow">
+                        <div class="arch-box">
+                            <div style="font-size: 2em;">*</div>
+                            <div>Gorsel Yukleme</div>
+                        </div>
+                        <div class="arch-arrow">-></div>
+                        <div class="arch-box">
+                            <div style="font-size: 2em;">*</div>
+                            <div>YOLOv8 Tespit</div>
+                        </div>
+                        <div class="arch-arrow">-></div>
+                        <div class="arch-box">
+                            <div style="font-size: 2em;">*</div>
+                            <div>Major/Minor<br>Puanlama</div>
+                        </div>
+                        <div class="arch-arrow">-></div>
+                        <div class="arch-box">
+                            <div style="font-size: 2em;">*</div>
+                            <div>Puan Bazli<br>Indirim</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 30px; color: #f39c12;">Tespit Edilen Kusur Turleri ve Ciddiyet Sinifi</h4>
+                <div class="defect-classes">
+                    <div class="defect-card hole">
+                        <h4>Hole</h4>
+                        <p>Delik</p>
+                        <span class="severity severity-major">MAJOR</span>
+                    </div>
+                    <div class="defect-card stain">
+                        <h4>Stain</h4>
+                        <p>Leke</p>
+                        <span class="severity severity-major">MAJOR</span>
+                    </div>
+                    <div class="defect-card line">
+                        <h4>Line</h4>
+                        <p>Cizgi</p>
+                        <span class="severity severity-minor">MINOR</span>
+                    </div>
+                    <div class="defect-card knot">
+                        <h4>Knot</h4>
+                        <p>Dugum</p>
+                        <span class="severity severity-minor">MINOR</span>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 30px; color: #f39c12;">Major/Minor Puanlama Sistemi (PDF Standardi - ASTM D5430)</h4>
+                <table class="pricing-table">
+                    <tr>
+                        <th>Kusur Tipi</th>
+                        <th>Puanlama Kurali</th>
+                        <th>Ornek (10cm kusur)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Major</strong> (Delik, Leke)</td>
+                        <td>Her 9 inc (23 cm) icin 1 puan</td>
+                        <td>1.0 puan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Minor</strong> (Cizgi, Dugum)</td>
+                        <td>Her 9 inc (23 cm) icin 0.25 puan</td>
+                        <td>0.25 puan</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px; color: #888; font-size: 0.9em;">* 9 inc (23 cm)'den uzun kusurlar otomatik olarak Major sayilir. Bir lineer metrede maksimum 4 puan.</p>
+
+                <h4 style="margin-top: 30px; color: #f39c12;">Kalite Siniflari (PDF Standardi)</h4>
+                <div class="quality-grades">
+                    <div class="grade-card grade-a">
+                        <h4>A Sinifi</h4>
+                        <p>0-20 puan/100m2</p>
+                        <small>Birinci Kalite - Mukemmel</small>
+                    </div>
+                    <div class="grade-card grade-b">
+                        <h4>B Sinifi</h4>
+                        <p>20-40 puan/100m2</p>
+                        <small>Ikinci Kalite - Kabul Edilebilir</small>
+                    </div>
+                    <div class="grade-card grade-c">
+                        <h4>C Sinifi</h4>
+                        <p>40-60 puan/100m2</p>
+                        <small>Ucuncu Kalite - Sinirli Kullanim</small>
+                    </div>
+                    <div class="grade-card grade-reject">
+                        <h4>Ret</h4>
+                        <p>60+ puan/100m2</p>
+                        <small>Kabul Edilemez</small>
+                    </div>
+                </div>
+                <p style="margin-top: 10px; color: #888; font-size: 0.9em;">* Kabul siniri: 40 puan/100m2 (PDF standardi)</p>
+
+                <h4 style="margin-top: 30px; color: #f39c12;">Puan Bazli Oransal Indirim Sistemi</h4>
+                <table class="pricing-table">
+                    <tr>
+                        <th>Parametre</th>
+                        <th>Formul</th>
+                        <th>Ornek (40 puan/100m2)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Indirim Orani</strong></td>
+                        <td>Puan x 0.5 / 100 (maks %70)</td>
+                        <td>40 x 0.5 / 100 = %20</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Indirimli Fiyat</strong></td>
+                        <td>Sabit Fiyat x (1 - Indirim Orani)</td>
+                        <td>100 x 0.80 = 80 TL/m2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yeni Toplam</strong></td>
+                        <td>Sabit Toplam - Indirim Tutari</td>
+                        <td>1500 - 300 = 1,200 TL</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px; color: #888; font-size: 0.9em;">* Her 10 puan icin %5 indirim. Maksimum indirim: %70. Sabit fiyat kullanici tarafindan girilir.</p>
+            </div>
+        </section>
+
+        <!-- app.py -->
+        <section class="file-section" id="app">
+            <div class="file-header">
+                <div class="file-icon icon-python">*</div>
+                <div>
+                    <h2>app.py <span class="update-badge">GUNCELLENDI</span></h2>
+                    <span class="file-path">./app.py (200 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>Streamlit tabanli ana web uygulamasi. Kullanici arayuzu, gorsel yukleme,
+                    <strong>ayarlanabilir guven esigi</strong>, kusur analizi, <strong>Major/Minor puanlama detaylari</strong>
+                    ve <strong>puan bazli indirimli fiyatlandirma</strong> islemlerini koordine eder.
+                    Sonuclari gorsel ve metin olarak sunar, indirilebilir fis olusturur.</p>
+                </div>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Streamlit Web Arayuzu</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Gorsel Yukleme (JPG, PNG)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Ayarlanabilir Guven Esigi (Slider)</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Major/Minor Puan Gosterimi</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Puan Bazli Indirim Sistemi</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>4-Point Standart Bilgi Fisi</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <h4>Yeni Ozellikler</h4>
+
+                    <div class="code-block">
+                        <pre><span class="comment"># Ayarlanabilir Guven Esigi</span>
+conf_threshold = st.slider(
+    <span class="string">"Guven Esigi"</span>,
+    min_value=<span class="number">0.1</span>,
+    max_value=<span class="number">0.9</span>,
+    value=<span class="number">0.25</span>,
+    step=<span class="number">0.05</span>,
+    help=<span class="string">"Dusuk deger: daha fazla tespit. Yuksek deger: daha guvenilir tespit."</span>
+)</pre>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><span class="comment"># Major/Minor Puanlama Gosterimi</span>
+st.subheader(<span class="string">"Puanlama Detaylari"</span>)
+pc1.metric(<span class="string">"Major Puan"</span>, f<span class="string">"{quality.major_points:.2f}"</span>)
+pc2.metric(<span class="string">"Minor Puan"</span>, f<span class="string">"{quality.minor_points:.2f}"</span>)
+pc3.metric(<span class="string">"Toplam Puan"</span>, f<span class="string">"{quality.total_points:.2f}"</span>)
+
+<span class="comment"># Puan Bazli Indirim Gosterimi</span>
+st.write(f<span class="string">"- Sabit Fiyat: {pricing.base_price_per_m2:.2f} TL/m2"</span>)
+st.write(f<span class="string">"- Indirim Orani: %{pricing.discount_rate*100:.1f}"</span>)
+st.write(f<span class="string">"- Yeni Fiyat: {pricing.total_price:.2f} TL"</span>)</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- detector.py -->
+        <section class="file-section" id="detector">
+            <div class="file-header">
+                <div class="file-icon icon-python">*</div>
+                <div>
+                    <h2>detector.py <span class="update-badge">GUNCELLENDI</span></h2>
+                    <span class="file-path">./src/detector.py (265 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>YOLOv8 Segmentation modeli ile kusur tespiti yapan ana modul.
+                    Goruntuleri analiz eder, kusurlari tespit eder, boyut hesaplamalari yapar
+                    ve sonuclari annotated gorsel ile birlikte dondurur.
+                    <strong>Artik detect() metodunda dinamik conf_threshold destegi var.</strong></p>
+                </div>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>YOLOv8 Segmentation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Dinamik Guven Esigi</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Piksel-CM Donusumu</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Mask Overlay</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <h4>Guncellenmis detect() Metodu</h4>
+
+                    <div class="code-block">
+                        <pre><span class="keyword">def</span> <span class="function">detect</span>(
+    self,
+    image: Union[<span class="class">str</span>, np.ndarray],
+    dpi: <span class="class">float</span> = <span class="number">96</span>,
+    fabric_width_cm: <span class="class">float</span> = <span class="number">150</span>,
+    conf_threshold: Optional[<span class="class">float</span>] = <span class="keyword">None</span>,  <span class="comment"># YENİ</span>
+) -> DetectionResult:
+    <span class="comment">"""Goruntude kusur tespiti yap"""</span>
+    <span class="comment"># Guven esigini belirle</span>
+    conf = conf_threshold <span class="keyword">if</span> conf_threshold <span class="keyword">is not None else</span> self.conf_threshold
+
+    <span class="comment"># YOLOv8 inference</span>
+    predictions = self.model.predict(
+        source=img,
+        conf=conf,  <span class="comment"># Dinamik guven esigi</span>
+        iou=self.iou_threshold,
+        ...
+    )</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- quality_scorer.py -->
+        <section class="file-section" id="quality">
+            <div class="file-header">
+                <div class="file-icon icon-python">*</div>
+                <div>
+                    <h2>quality_scorer.py <span class="update-badge">TAMAMEN YENILENDI</span></h2>
+                    <span class="file-path">./src/quality_scorer.py (385 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p><strong>4-Point Uluslararasi Kalite Standardi (ASTM D5430)</strong> ve
+                    <strong>Major/Minor Kusur Siniflandirmasi</strong>'na gore kusur puanlama modulu.
+                    Major kusurlar icin her 9 inc (23 cm)'de 1 puan, Minor kusurlar icin 0.25 puan atar.
+                    100m2 basina toplam puani hesaplar ve kalite sinifini (A, B, C, Ret) belirler.</p>
+                </div>
+
+                <div class="code-section">
+                    <h4>Major/Minor Kusur Siniflandirmasi</h4>
+
+                    <div class="code-block">
+                        <pre><span class="keyword">class</span> <span class="class">DefectSeverity</span>(Enum):
+    <span class="comment">"""Kusur ciddiyeti"""</span>
+    MAJOR = <span class="string">"Major"</span>    <span class="comment"># Ciddi - urunu ikinci kalite yapar</span>
+    MINOR = <span class="string">"Minor"</span>    <span class="comment"># Hafif - konuma gore kabul edilebilir</span>
+
+<span class="comment"># Kusur turlerinin Major/Minor siniflandirmasi</span>
+DEFECT_SEVERITY = {
+    <span class="string">"Hole"</span>: DefectSeverity.MAJOR,    <span class="comment"># Delik - her zaman major</span>
+    <span class="string">"Stain"</span>: DefectSeverity.MAJOR,   <span class="comment"># Leke - genellikle major</span>
+    <span class="string">"Line"</span>: DefectSeverity.MINOR,    <span class="comment"># Cizgi - genellikle minor</span>
+    <span class="string">"Knot"</span>: DefectSeverity.MINOR,    <span class="comment"># Dugum - genellikle minor</span>
+}</pre>
+                    </div>
+
+                    <h4>Major/Minor Puanlama (PDF Standardi - ASTM D5430)</h4>
+
+                    <div class="code-block">
+                        <pre><span class="comment"># 9 inc = 22.86 cm ≈ 23 cm (PDF standardi)</span>
+INCH_9_CM = <span class="number">23.0</span>
+
+<span class="keyword">def</span> <span class="function">calculate_major_minor_score</span>(self, length_cm, severity):
+    <span class="comment">"""
+    PDF Standardi:
+    - Major: Her 9 inc (23 cm) icin 1 puan
+    - Minor: Her 9 inc (23 cm) icin 0.25 puan
+    """</span>
+    <span class="comment"># 23 cm'lik increment sayisi (yukari yuvarla)</span>
+    increments = max(<span class="number">1</span>, -(-<span class="keyword">int</span>(length_cm) // <span class="keyword">int</span>(self.INCH_9_CM)))
+
+    <span class="keyword">if</span> severity == DefectSeverity.MAJOR:
+        points = increments * <span class="number">1.0</span>
+    <span class="keyword">else</span>:
+        points = increments * <span class="number">0.25</span>
+
+    <span class="comment"># Maksimum 4 puan kurali (bir lineer metrede)</span>
+    points = min(points, <span class="number">4.0</span>)
+    <span class="keyword">return</span> points, desc</pre>
+                    </div>
+
+                    <h4>Kalite Esikleri (PDF Standardi)</h4>
+
+                    <div class="code-block">
+                        <pre><span class="comment"># Kalite sinifi esikleri (100 m2 basina puan)</span>
+<span class="comment"># PDF'e gore 40 puan/100m2 kabul edilebilir sinir</span>
+GRADE_THRESHOLDS = {
+    QualityGrade.A: (<span class="number">0</span>, <span class="number">20</span>),           <span class="comment"># Birinci Kalite - Mukemmel</span>
+    QualityGrade.B: (<span class="number">20</span>, <span class="number">40</span>),          <span class="comment"># Ikinci Kalite - Kabul Edilebilir</span>
+    QualityGrade.C: (<span class="number">40</span>, <span class="number">60</span>),          <span class="comment"># Ucuncu Kalite - Sinirli Kullanim</span>
+    QualityGrade.REJECT: (<span class="number">60</span>, inf),    <span class="comment"># Ret - Kabul Edilemez</span>
+}</pre>
+                    </div>
+
+                    <h4>Guncellenmis QualityReport</h4>
+
+                    <div class="code-block">
+                        <pre><span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="class">QualityReport</span>:
+    total_points: <span class="class">float</span>
+    major_points: <span class="class">float</span>       <span class="comment"># YENİ</span>
+    minor_points: <span class="class">float</span>       <span class="comment"># YENİ</span>
+    points_per_100m2: <span class="class">float</span>
+    grade: <span class="class">QualityGrade</span>
+    grade_description: <span class="class">str</span>
+    defect_scores: <span class="class">List</span>[<span class="class">DefectScore</span>]
+    summary: <span class="class">Dict</span>
+    fabric_area_m2: <span class="class">float</span>
+    fabric_width_cm: <span class="class">float</span>    <span class="comment"># YENİ</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- pricing.py -->
+        <section class="file-section" id="pricing">
+            <div class="file-header">
+                <div class="file-icon icon-python">*</div>
+                <div>
+                    <h2>pricing.py <span class="update-badge">PUAN BAZLI INDIRIM</span></h2>
+                    <span class="file-path">./src/pricing.py (191 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p><strong>Puan Bazli Oransal Indirim Sistemi</strong>. Kusur puanina gore otomatik indirim hesaplar.
+                    Formul: Indirim Orani = Puan x 0.5 / 100 (maks %70).
+                    Yeni Fiyat = Sabit Fiyat - (Sabit Fiyat x Indirim Orani).</p>
+                </div>
+
+                <div class="code-section">
+                    <h4>Indirim Hesaplama</h4>
+
+                    <div class="code-block">
+                        <pre><span class="keyword">class</span> <span class="class">PricingCalculator</span>:
+    <span class="comment">"""
+    Puan Bazli Oransal Indirim Hesaplayici
+
+    Formul:
+    - Indirim Orani = (Puan/100m2) x Carpan / 100
+    - Yeni Fiyat = Sabit Fiyat x (1 - Indirim Orani)
+
+    Ornek (carpan=0.5, maks=%70):
+    - 10 puan -> %5 indirim
+    - 40 puan -> %20 indirim
+    - 60 puan -> %30 indirim
+    """</span>
+
+    <span class="keyword">def</span> <span class="function">__init__</span>(self,
+        base_price_per_m2=<span class="number">100.0</span>,
+        discount_multiplier=<span class="number">0.5</span>,   <span class="comment"># Her 10 puan icin %5</span>
+        max_discount_rate=<span class="number">0.70</span>,    <span class="comment"># Maksimum %70</span>
+        currency=<span class="string">"TL"</span>
+    ):
+        ...
+
+    <span class="keyword">def</span> <span class="function">calculate_discount_rate</span>(self, points_per_100m2):
+        raw_rate = (points_per_100m2 * self.discount_multiplier) / <span class="number">100</span>
+        <span class="keyword">return</span> min(raw_rate, self.max_discount_rate)</pre>
+                    </div>
+
+                    <h4>PricingResult</h4>
+
+                    <div class="code-block">
+                        <pre><span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="class">PricingResult</span>:
+    base_price_per_m2: <span class="class">float</span>       <span class="comment"># Sabit birim fiyat</span>
+    adjusted_price_per_m2: <span class="class">float</span>   <span class="comment"># Indirimli birim fiyat</span>
+    total_base_price: <span class="class">float</span>       <span class="comment"># Sabit toplam</span>
+    total_price: <span class="class">float</span>            <span class="comment"># Indirimli toplam (YENI FIYAT)</span>
+    discount_rate: <span class="class">float</span>          <span class="comment"># Indirim orani (0-0.70)</span>
+    discount_amount: <span class="class">float</span>        <span class="comment"># Indirim tutari (TL)</span>
+    fabric_area_m2: <span class="class">float</span>
+    quality_grade: <span class="class">QualityGrade</span>
+    points_per_100m2: <span class="class">float</span>
+    ...</pre>
+                    </div>
+
+                    <h4>Fiyat Hesaplama Ornegi</h4>
+
+                    <div class="code-block">
+                        <pre><span class="comment"># Ornek: 40 puan/100m2, 100 TL/m2 sabit fiyat, 15 m2 alan</span>
+
+<span class="comment"># Indirim orani hesabi</span>
+discount_rate = <span class="number">40</span> * <span class="number">0.5</span> / <span class="number">100</span>  <span class="comment"># = 0.20 = %20</span>
+
+<span class="comment"># Indirimli birim fiyat</span>
+adjusted_price = <span class="number">100</span> * (<span class="number">1</span> - <span class="number">0.20</span>)  <span class="comment"># = 80 TL/m2</span>
+
+<span class="comment"># Fiyat hesabi</span>
+total_base = <span class="number">100</span> * <span class="number">15</span>    <span class="comment"># = 1,500 TL (sabit)</span>
+total_price = <span class="number">80</span> * <span class="number">15</span>    <span class="comment"># = 1,200 TL (yeni fiyat)</span>
+discount = <span class="number">1500</span> - <span class="number">1200</span>  <span class="comment"># = 300 TL indirim</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- train.py -->
+        <section class="file-section" id="train">
+            <div class="file-header">
+                <div class="file-icon icon-python">*</div>
+                <div>
+                    <h2>train.py</h2>
+                    <span class="file-path">./src/train.py (146 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>YOLOv8 Segmentation model egitim modulu. Pretrained modellerden transfer
+                    learning yapar, egitim parametrelerini ayarlar, en iyi modeli kaydeder
+                    ve dogrulama/export islemlerini gerceklestirir.</p>
+                </div>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>YOLOv8 n/s/m/l/x Modelleri</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Transfer Learning</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>Early Stopping</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">*</span>
+                        <span>ONNX Export</span>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <h4>CLI Kullanimi</h4>
+
+                    <div class="code-block">
+                        <pre><span class="comment"># Egitim</span>
+python src/train.py --epochs <span class="number">100</span> --model s --batch <span class="number">16</span>
+
+<span class="comment"># Dogrulama</span>
+python src/train.py --validate
+
+<span class="comment"># Parametreler</span>
+--data     : Data YAML dosyasi
+--model    : Model boyutu (n/s/m/l/x)
+--epochs   : Epoch sayisi
+--imgsz    : Goruntu boyutu
+--batch    : Batch boyutu
+--device   : GPU device</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- config.yaml -->
+        <section class="file-section" id="config">
+            <div class="file-header">
+                <div class="file-icon icon-yaml">*</div>
+                <div>
+                    <h2>config.yaml</h2>
+                    <span class="file-path">./config.yaml (34 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>Proje genel konfigurasyonu. Model ayarlari, kalite sistemi parametreleri,
+                    fiyatlandirma kurallari ve kusur sinifi tanimlarini icerir.</p>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-block">
+                        <pre><span class="comment"># Model Ayarlari</span>
+<span class="function">model</span>:
+  weights: <span class="string">"models/best.pt"</span>
+  conf_threshold: <span class="number">0.25</span>
+  iou_threshold: <span class="number">0.45</span>
+
+<span class="comment"># Kalite Sistemi</span>
+<span class="function">quality</span>:
+  system: <span class="string">"4-point"</span>
+  max_points_per_100m2: <span class="number">40</span>
+
+<span class="comment"># Kusur Siniflari</span>
+<span class="function">defect_classes</span>:
+  <span class="number">0</span>: <span class="string">"Hole"</span>    <span class="comment"># Delik - MAJOR</span>
+  <span class="number">1</span>: <span class="string">"Knot"</span>    <span class="comment"># Dugum - MINOR</span>
+  <span class="number">2</span>: <span class="string">"Line"</span>    <span class="comment"># Cizgi - MINOR</span>
+  <span class="number">3</span>: <span class="string">"Stain"</span>   <span class="comment"># Leke - MAJOR</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- data.yaml -->
+        <section class="file-section" id="data">
+            <div class="file-header">
+                <div class="file-icon icon-yaml">*</div>
+                <div>
+                    <h2>data.yaml</h2>
+                    <span class="file-path">./data/data.yaml (13 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>YOLOv8 veri seti konfigurasyonu. Egitim/dogrulama/test veri yollari
+                    ve sinif tanimlarini icerir. Roboflow'dan alinan veri setidir.</p>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-block">
+                        <pre><span class="comment"># Veri Yollari</span>
+<span class="function">train</span>: ../train/images
+<span class="function">val</span>: ../valid/images
+<span class="function">test</span>: ../test/images
+
+<span class="comment"># Sinif Sayisi ve Isimleri</span>
+<span class="function">nc</span>: <span class="number">4</span>
+<span class="function">names</span>: [<span class="string">'Hole'</span>, <span class="string">'Knot'</span>, <span class="string">'Line'</span>, <span class="string">'Stain'</span>]
+
+<span class="comment"># Roboflow Bilgileri</span>
+<span class="function">roboflow</span>:
+  workspace: hamdi-durusoy-iqwpj
+  project: fabric-defect-detection-v2-w4az5
+  version: <span class="number">1</span>
+  license: CC BY 4.0</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- requirements.txt -->
+        <section class="file-section" id="requirements">
+            <div class="file-header">
+                <div class="file-icon icon-txt">*</div>
+                <div>
+                    <h2>requirements.txt</h2>
+                    <span class="file-path">./requirements.txt (8 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>Proje bagimlilikları. Derin ogrenme, web arayuzu ve goruntu isleme
+                    kutuphanelerini icerir.</p>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-badge">ultralytics >= 8.0.0</span>
+                    <span class="tech-badge">streamlit >= 1.28.0</span>
+                    <span class="tech-badge">opencv-python >= 4.8.0</span>
+                    <span class="tech-badge">numpy >= 1.24.0</span>
+                    <span class="tech-badge">pandas >= 2.0.0</span>
+                    <span class="tech-badge">Pillow >= 10.0.0</span>
+                    <span class="tech-badge">pyyaml >= 6.0</span>
+                    <span class="tech-badge">reportlab >= 4.0.0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- __init__.py -->
+        <section class="file-section" id="init">
+            <div class="file-header">
+                <div class="file-icon icon-python">*</div>
+                <div>
+                    <h2>__init__.py</h2>
+                    <span class="file-path">./src/__init__.py (8 satir)</span>
+                </div>
+            </div>
+            <div class="file-content">
+                <div class="summary-box">
+                    <h3>Dosya Ozeti</h3>
+                    <p>src paket baslangic dosyasi. Ana modulleri dis dunyaya export eder.</p>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-block">
+                        <pre><span class="string">"""Kumas Kusur Tespiti ve Fiyatlandirma Modulleri"""</span>
+
+<span class="keyword">from</span> .detector <span class="keyword">import</span> <span class="class">FabricDefectDetector</span>
+<span class="keyword">from</span> .quality_scorer <span class="keyword">import</span> <span class="class">QualityScorer</span>, <span class="class">DefectSeverity</span>
+<span class="keyword">from</span> .pricing <span class="keyword">import</span> <span class="class">PricingCalculator</span>
+
+__all__ = [
+    <span class="string">'FabricDefectDetector'</span>,
+    <span class="string">'QualityScorer'</span>,
+    <span class="string">'DefectSeverity'</span>,
+    <span class="string">'PricingCalculator'</span>
+]</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Kumas Kusur Tespiti ve Fiyatlandirma Sistemi - Proje Dokumantasyonu</p>
+            <p>4-Point Kalite Standardi | Major/Minor Kusur Siniflandirmasi | ASTM D5430</p>
+            <p>Son Guncelleme: 14 Aralik 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
