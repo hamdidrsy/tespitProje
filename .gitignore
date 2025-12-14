@@ -36,7 +36,6 @@ dist/
 *.pth
 yolo11n.pt
 yolov8s-seg.pt
-models/
 models/**/weights/
 
 # Dataset caches
